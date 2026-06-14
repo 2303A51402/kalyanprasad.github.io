@@ -31,6 +31,21 @@
     --font-body: 'Inter', sans-serif;
   }
 
+  [data-theme="dark"] {
+    --white: #0f0f0e;
+    --off-white: #141413;
+    --smoke: #1a1918;
+    --mist: #2a2927;
+    --stone: #3a3835;
+    --silver: #6b6965;
+    --slate: #a8a5a0;
+    --charcoal: #d4d2ce;
+    --ink: #f5f4f2;
+    --accent: #f5f4f2;
+    --gold: #c9a84c;
+    --gold-light: #f0d990;
+  }
+
   html { scroll-behavior: smooth; }
 
   body {
@@ -491,8 +506,58 @@
     .footer-links { flex-wrap: wrap; }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  /* ── DARK MODE TOGGLE ── */
+  .dark-toggle {
+    background: var(--smoke); border: 1.5px solid var(--mist);
+    border-radius: 50px; padding: 7px 14px;
+    font-size: 13px; font-weight: 500; color: var(--slate);
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 6px;
+    margin-right: 12px;
+  }
+  .dark-toggle:hover { border-color: var(--stone); color: var(--ink); }
+
+  /* ── CONTACT FORM ── */
+  .contact-form-wrap {
+    background: var(--smoke); border: 1px solid var(--mist);
+    border-radius: var(--radius-xl); padding: 48px 40px;
+  }
+  .cf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  .cf-field { margin-bottom: 20px; }
+  .cf-label {
+    display: block; font-size: 12px; font-weight: 700;
+    color: var(--silver); letter-spacing: 1px;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .cf-input {
+    width: 100%; padding: 14px 16px;
+    border: 1.5px solid var(--mist); border-radius: var(--radius-sm);
+    font-size: 14px; font-family: var(--font-body);
+    background: var(--white); color: var(--ink);
+    outline: none; transition: border-color 0.2s; box-sizing: border-box;
+  }
+  .cf-input:focus { border-color: var(--ink); }
+  .cf-textarea { resize: vertical; min-height: 130px; }
+  .cf-btn {
+    width: 100%; padding: 16px;
+    background: var(--ink); color: var(--white);
+    border: none; border-radius: 50px;
+    font-size: 15px; font-weight: 600;
+    font-family: var(--font-body);
+    cursor: pointer; transition: all 0.25s;
+  }
+  .cf-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.15); }
+  .cf-status {
+    display: none; margin-top: 20px; padding: 14px 20px;
+    border-radius: var(--radius-sm); text-align: center;
+    font-size: 14px; font-weight: 500;
+  }
+  .cf-status.success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #16a34a; }
+  .cf-status.error { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; }
+
+  @media (max-width: 768px) {
+    .cf-grid { grid-template-columns: 1fr; }
+    .contact-form-wrap { padding: 28px 20px; }
   }
 </style>
 </head>
@@ -508,14 +573,17 @@
     <li><a href="#certifications">Certifications</a></li>
     <li><a href="#recruiter">Contact</a></li>
   </ul>
-  <a href="mailto:vangakalyan18@gmail.com" class="nav-cta">Get in Touch →</a>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <button class="dark-toggle" onclick="toggleDark()" id="dark-btn">🌙 Dark</button>
+    <a href="mailto:vangakalyan18@gmail.com" class="nav-cta">Get in Touch →</a>
+  </div>
 </nav>
 
 <!-- HERO -->
 <div id="hero">
   <div class="hero-content">
-    <div class="hero-eyebrow">Open to Opportunities — Class of 2027</div>
-    <h1 class="hero-headline">Code.<br>Learn.<br>Build. <em>Repeat.</em></h1>
+    <div class="hero-eyebrow">Open to Opportunities — Class of 2025</div>
+ <h1 class="hero-headline">Code.<br>Learn.<br>Build. <em>Repeat.</em></h1>
     <p class="hero-sub">Hi, I'm Vanga Kalyan Prasad — a final-year Computer Science Engineering student passionate about software development, Python, and creating digital solutions that actually matter.</p>
     <div class="hero-actions">
       <a href="#projects" class="btn-primary">
@@ -533,7 +601,7 @@
 
   <div class="hero-visual">
     <div class="avatar-ring" style="padding:0;overflow:hidden;">
-  <img src="kalyan.jpg." style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+  <img src="kalyan.jpg.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
 </div>
       </div>
       <div class="avatar-badge">
@@ -614,7 +682,7 @@
           <span class="badge">CLI</span>
         </div>
         <div class="project-links">
-        <a href="https://github.com/2303A51402/expenses-tracker" target="_blank" class="link-btn">
+          <a href="#" class="link-btn">
             <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.37.6.1.83-.26.83-.57v-2c-3.34.73-4.04-1.6-4.04-1.6-.54-1.38-1.33-1.75-1.33-1.75-1.08-.74.08-.73.08-.73 1.2.09 1.83 1.23 1.83 1.23 1.06 1.82 2.8 1.3 3.48.99.1-.77.41-1.3.75-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.3c0 .32.22.68.83.57C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
             GitHub
           </a>
@@ -669,7 +737,7 @@
           <span class="badge">Algorithms</span>
         </div>
         <div class="project-links">
-         <a href="https://github.com/2303A51402/quiz-flashcard-tool" target="_blank" class="link-btn">
+          <a href="#" class="link-btn">
             <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.37.6.1.83-.26.83-.57v-2c-3.34.73-4.04-1.6-4.04-1.6-.54-1.38-1.33-1.75-1.33-1.75-1.08-.74.08-.73.08-.73 1.2.09 1.83 1.23 1.83 1.23 1.06 1.82 2.8 1.3 3.48.99.1-.77.41-1.3.75-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.3c0 .32.22.68.83.57C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
             GitHub
           </a>
@@ -813,6 +881,35 @@
   </div>
 </div>
 
+<!-- CONTACT FORM -->
+<section id="contact" style="max-width:700px;margin:0 auto;padding:100px 40px;">
+  <p class="section-label" style="text-align:center">Get In Touch</p>
+  <h2 class="section-headline" style="text-align:center;max-width:100%">Send me a message.</h2>
+  <p class="section-body" style="text-align:center;margin:0 auto 48px;max-width:480px">Whether it's a job opportunity, collaboration, or just a hello — I read every message and reply within 24 hours.</p>
+  <div class="contact-form-wrap">
+    <div class="cf-grid">
+      <div>
+        <label class="cf-label">Your Name</label>
+        <input id="cf-name" class="cf-input" type="text" placeholder="Recruiter Name">
+      </div>
+      <div>
+        <label class="cf-label">Your Email</label>
+        <input id="cf-email" class="cf-input" type="email" placeholder="recruiter@company.com">
+      </div>
+    </div>
+    <div class="cf-field">
+      <label class="cf-label">Subject</label>
+      <input id="cf-subject" class="cf-input" type="text" placeholder="Job Opportunity / Collaboration / Just saying hi">
+    </div>
+    <div class="cf-field">
+      <label class="cf-label">Message</label>
+      <textarea id="cf-message" class="cf-input cf-textarea" placeholder="Hi Kalyan, I came across your portfolio and would love to connect about..."></textarea>
+    </div>
+    <button class="cf-btn" onclick="sendMessage()">Send Message →</button>
+    <div id="cf-status" class="cf-status"></div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-brand">VKP<span>.</span></div>
@@ -838,6 +935,61 @@
 </footer>
 
 <script>
+// Dark mode toggle
+function toggleDark() {
+  const html = document.documentElement;
+  const btn = document.getElementById('dark-btn');
+  if (html.getAttribute('data-theme') === 'dark') {
+    html.removeAttribute('data-theme');
+    btn.textContent = '🌙 Dark';
+    localStorage.setItem('theme', 'light');
+  } else {
+    html.setAttribute('data-theme', 'dark');
+    btn.textContent = '☀️ Light';
+    localStorage.setItem('theme', 'dark');
+  }
+}
+// Restore saved theme
+if (localStorage.getItem('theme') === 'dark') {
+  document.documentElement.setAttribute('data-theme', 'dark');
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('dark-btn');
+    if (btn) btn.textContent = '☀️ Light';
+  });
+}
+
+// Contact form
+function sendMessage() {
+  const name = document.getElementById('cf-name').value.trim();
+  const email = document.getElementById('cf-email').value.trim();
+  const subject = document.getElementById('cf-subject').value.trim();
+  const message = document.getElementById('cf-message').value.trim();
+  const status = document.getElementById('cf-status');
+
+  if (!name || !email || !message) {
+    status.className = 'cf-status error';
+    status.style.display = 'block';
+    status.textContent = 'Please fill in your name, email, and message.';
+    return;
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    status.className = 'cf-status error';
+    status.style.display = 'block';
+    status.textContent = 'Please enter a valid email address.';
+    return;
+  }
+  const mailtoLink = `mailto:vangakalyan18@gmail.com?subject=${encodeURIComponent(subject || 'Portfolio Contact: ' + name)}&body=${encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message)}`;
+  window.location.href = mailtoLink;
+  status.className = 'cf-status success';
+  status.style.display = 'block';
+  status.textContent = '✓ Opening your email client... Thank you for reaching out!';
+  document.getElementById('cf-name').value = '';
+  document.getElementById('cf-email').value = '';
+  document.getElementById('cf-subject').value = '';
+  document.getElementById('cf-message').value = '';
+}
+
 // Ticker
 const techs = ['Python','Java','C','HTML','CSS','JavaScript','MySQL','SQL','Git','GitHub'];
 const track = document.getElementById('ticker');
