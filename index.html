@@ -275,6 +275,90 @@
 
   /* ── PROJECTS ── */
   .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 60px; }
+
+  /* ── FEATURED PROJECT ── */
+  .featured-project {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--charcoal) 100%);
+    border-radius: var(--radius-xl);
+    padding: 48px;
+    margin-top: 60px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+    color: var(--white);
+  }
+  .featured-project::before {
+    content: '';
+    position: absolute; top: -50%; right: -10%;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .featured-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(201,168,76,0.15); border: 1px solid var(--gold);
+    color: var(--gold-light); padding: 6px 14px; border-radius: 50px;
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; margin-bottom: 24px;
+  }
+  .featured-badge::before { content: '⭐'; }
+  .featured-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 40px); font-weight: 800;
+    letter-spacing: -1px; margin-bottom: 16px; color: var(--white);
+  }
+  .featured-desc {
+    font-size: 16px; line-height: 1.7; color: #cccac5;
+    max-width: 680px; margin-bottom: 28px;
+  }
+  .featured-stack-row {
+    display: flex; gap: 24px; margin-bottom: 32px; flex-wrap: wrap;
+  }
+  .featured-stack-item {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .featured-stack-label {
+    font-size: 10px; color: var(--gold-light); text-transform: uppercase;
+    letter-spacing: 1px; font-weight: 700;
+  }
+  .featured-stack-value {
+    font-size: 14px; color: var(--white); font-weight: 500;
+  }
+  .featured-features {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-bottom: 32px; list-style: none;
+  }
+  .featured-features li {
+    font-size: 14px; color: #cccac5;
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+  .featured-features li::before {
+    content: '✓'; color: var(--gold-light); font-weight: 700; flex-shrink: 0;
+  }
+  .featured-links { display: flex; gap: 14px; flex-wrap: wrap; position: relative; z-index: 1; }
+  .featured-btn-primary {
+    background: var(--gold); color: var(--ink);
+    padding: 13px 26px; border-radius: 50px;
+    font-size: 14px; font-weight: 700;
+    text-decoration: none; transition: all 0.25s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .featured-btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .featured-btn-outline {
+    background: transparent; color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    padding: 13px 26px; border-radius: 50px;
+    font-size: 14px; font-weight: 500;
+    text-decoration: none; transition: all 0.25s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .featured-btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+
+  @media (max-width: 768px) {
+    .featured-project { padding: 28px 22px; }
+    .featured-features { grid-template-columns: 1fr; }
+    .featured-stack-row { gap: 16px; }
+  }
   .project-card {
     background: var(--smoke);
     border: 1px solid var(--mist);
@@ -645,7 +729,7 @@
       <div class="stat-label">Certifications Earned</div>
     </div>
     <div class="stat-card reveal reveal-delay-2">
-      <div class="stat-num">4<span>+</span></div>
+      <div class="stat-num">5<span>+</span></div>
       <div class="stat-label">Projects Built</div>
     </div>
     <div class="stat-card reveal reveal-delay-3">
@@ -661,6 +745,48 @@
 <section id="projects">
   <p class="section-label">Featured Work</p>
   <h2 class="section-headline">Projects built to solve real problems.</h2>
+
+  <!-- FEATURED MAIN PROJECT -->
+  <div class="featured-project reveal">
+    <span class="featured-badge">Featured Project</span>
+    <h3 class="featured-title">Job Market Analytics Dashboard</h3>
+    <p class="featured-desc">A full-stack analytics platform that gives real-time insight into job market trends — built end-to-end with a Python FastAPI backend and a React + Vite frontend, then deployed live so anyone can use it. This is the most complete project in my portfolio, covering backend API design, frontend data visualization, and production deployment.</p>
+
+    <div class="featured-stack-row">
+      <div class="featured-stack-item">
+        <span class="featured-stack-label">Backend</span>
+        <span class="featured-stack-value">Python · FastAPI</span>
+      </div>
+      <div class="featured-stack-item">
+        <span class="featured-stack-label">Frontend</span>
+        <span class="featured-stack-value">React · Vite · Tailwind CSS</span>
+      </div>
+      <div class="featured-stack-item">
+        <span class="featured-stack-label">Deployment</span>
+        <span class="featured-stack-value">Render + Netlify</span>
+      </div>
+    </div>
+
+    <ul class="featured-features">
+      <li>Live dashboard with real-time job market statistics</li>
+      <li>Trending Roles, Salary Insights, and Search Analytics tabs</li>
+      <li>30-day market trend visualization with interactive charts</li>
+      <li>REST API with 9+ documented endpoints (Swagger UI)</li>
+      <li>Fully deployed production app — backend and frontend hosted live</li>
+      <li>Clean, responsive dark-themed UI built with Tailwind CSS</li>
+    </ul>
+
+    <div class="featured-links">
+      <a href="https://job-market-analytics-kalyan.netlify.app" target="_blank" class="featured-btn-primary">
+        Live Demo →
+      </a>
+      <a href="https://github.com/2303A51402/job-portal-dashboard" target="_blank" class="featured-btn-outline">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.37.6.1.83-.26.83-.57v-2c-3.34.73-4.04-1.6-4.04-1.6-.54-1.38-1.33-1.75-1.33-1.75-1.08-.74.08-.73.08-.73 1.2.09 1.83 1.23 1.83 1.23 1.06 1.82 2.8 1.3 3.48.99.1-.77.41-1.3.75-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.3c0 .32.22.68.83.57C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        View Code
+      </a>
+    </div>
+  </div>
+
   <div class="projects-grid">
 
     <div class="project-card reveal">
