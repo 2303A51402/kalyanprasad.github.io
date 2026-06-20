@@ -430,7 +430,7 @@
   /* ── SKILLS ── */
   #skills { background: none; }
   .skills-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-bottom: 60px; align-items: end; }
-  .skills-groups { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .skills-groups { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
   .skill-group {
     background: var(--smoke); border: 1px solid var(--mist);
     border-radius: var(--radius-lg); padding: 28px 24px;
@@ -1058,30 +1058,47 @@
       <div class="skill-group-label">Programming</div>
       <div class="skill-pills">
         <span class="skill-pill">Python</span>
+        <span class="skill-pill">JavaScript</span>
         <span class="skill-pill">Java</span>
         <span class="skill-pill">C</span>
       </div>
     </div>
     <div class="skill-group reveal reveal-delay-1">
-      <div class="skill-group-label">Web</div>
+      <div class="skill-group-label">Backend & API</div>
       <div class="skill-pills">
-        <span class="skill-pill">HTML</span>
-        <span class="skill-pill">CSS</span>
-        <span class="skill-pill">JavaScript</span>
+        <span class="skill-pill">FastAPI</span>
+        <span class="skill-pill">REST APIs</span>
+        <span class="skill-pill">SQLAlchemy</span>
+        <span class="skill-pill">Uvicorn</span>
       </div>
     </div>
     <div class="skill-group reveal reveal-delay-2">
-      <div class="skill-group-label">Database</div>
+      <div class="skill-group-label">Frontend</div>
       <div class="skill-pills">
-        <span class="skill-pill">MySQL</span>
-        <span class="skill-pill">SQL</span>
+        <span class="skill-pill">HTML5</span>
+        <span class="skill-pill">CSS3</span>
+        <span class="skill-pill">React</span>
+        <span class="skill-pill">Tailwind CSS</span>
+        <span class="skill-pill">Chart.js</span>
       </div>
     </div>
     <div class="skill-group reveal reveal-delay-3">
-      <div class="skill-group-label">Tools</div>
+      <div class="skill-group-label">Database</div>
+      <div class="skill-pills">
+        <span class="skill-pill">MySQL</span>
+        <span class="skill-pill">SQLite</span>
+        <span class="skill-pill">PostgreSQL</span>
+        <span class="skill-pill">SQL</span>
+      </div>
+    </div>
+    <div class="skill-group reveal reveal-delay-4">
+      <div class="skill-group-label">Tools & DevOps</div>
       <div class="skill-pills">
         <span class="skill-pill">Git</span>
         <span class="skill-pill">GitHub</span>
+        <span class="skill-pill">Docker</span>
+        <span class="skill-pill">Render</span>
+        <span class="skill-pill">Netlify</span>
       </div>
     </div>
   </div>
@@ -1177,22 +1194,22 @@
     <div class="roadmap-item active reveal">
       <div class="roadmap-status">In Progress</div>
       <div class="roadmap-title">Data Structures & Algorithms</div>
-      <div class="roadmap-desc">Building the problem-solving foundation every engineer needs.</div>
+      <div class="roadmap-desc">Strengthening problem-solving skills through consistent LeetCode practice and competitive programming.</div>
     </div>
-    <div class="roadmap-item next reveal reveal-delay-1">
-      <div class="roadmap-status">Next Up</div>
-      <div class="roadmap-title">Full Stack Development</div>
-      <div class="roadmap-desc">Connecting Python backends to modern frontend frameworks.</div>
-    </div>
-    <div class="roadmap-item future reveal reveal-delay-2">
-      <div class="roadmap-status">Planned</div>
+    <div class="roadmap-item active reveal reveal-delay-1">
+      <div class="roadmap-status">In Progress</div>
       <div class="roadmap-title">System Design</div>
-      <div class="roadmap-desc">Learning how to architect systems that scale under load.</div>
+      <div class="roadmap-desc">Learning how to design scalable, reliable systems — databases, caching, load balancing, and API architecture.</div>
+    </div>
+    <div class="roadmap-item next reveal reveal-delay-2">
+      <div class="roadmap-status">Next Up</div>
+      <div class="roadmap-title">Cloud Deployment</div>
+      <div class="roadmap-desc">Exploring AWS and GCP — EC2, S3, Lambda — to move beyond free-tier hosting and build production-ready infrastructure.</div>
     </div>
     <div class="roadmap-item future reveal reveal-delay-3">
       <div class="roadmap-status">Planned</div>
-      <div class="roadmap-title">Software Engineering Practices</div>
-      <div class="roadmap-desc">Testing, CI/CD, code reviews, and clean architecture patterns.</div>
+      <div class="roadmap-title">Machine Learning & AI Integration</div>
+      <div class="roadmap-desc">Integrating ML models and LLM APIs into full-stack applications to build smarter, AI-powered features.</div>
     </div>
   </div>
 </section>
@@ -1326,7 +1343,7 @@ function sendMessage() {
 }
 
 // Ticker
-const techs = ['Python','FastAPI','React','JavaScript','SQLAlchemy','REST API','HTML','CSS','MySQL','Git','Chart.js','Netlify','Render','SQLite'];
+const techs = ['Python','FastAPI','React','JavaScript','SQLAlchemy','REST API','HTML5','CSS3','MySQL','SQLite','Git','Chart.js','Tailwind CSS','Docker','Netlify','Render'];
 const track = document.getElementById('ticker');
 const items = [...techs, ...techs].map((t, i) => {
   const el = document.createElement('span');
