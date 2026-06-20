@@ -460,6 +460,8 @@
     transition: all 0.3s;
   }
   .cert-card:hover { background: var(--white); box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-3px); }
+  .cert-card { cursor: pointer; position: relative; }
+  .cert-card:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
   .cert-icon {
     width: 44px; height: 44px; border-radius: var(--radius-sm);
     background: linear-gradient(135deg, var(--gold), var(--gold-light));
@@ -468,6 +470,96 @@
   }
   .cert-title { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
   .cert-issuer { font-size: 13px; color: var(--silver); }
+  .cert-view-hint {
+    font-size: 11px; font-weight: 600; color: var(--gold);
+    margin-top: 10px; display: flex; align-items: center; gap: 5px;
+    letter-spacing: 0.2px; opacity: 0; transform: translateX(-4px);
+    transition: all 0.25s;
+  }
+  .cert-card:hover .cert-view-hint { opacity: 1; transform: translateX(0); }
+  .cert-view-hint svg { width: 12px; height: 12px; }
+
+  /* ── CERTIFICATE MODAL ── */
+  .cert-modal-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(10,10,9,0.78);
+    backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px 24px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .cert-modal-overlay.open { opacity: 1; pointer-events: auto; }
+  .cert-modal {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    max-width: 760px; width: 100%;
+    max-height: 88vh;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+    transform: scale(0.94) translateY(10px);
+    transition: transform 0.3s ease;
+  }
+  .cert-modal-overlay.open .cert-modal { transform: scale(1) translateY(0); }
+  .cert-modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; padding: 20px 24px;
+    border-bottom: 1px solid var(--mist);
+    flex-shrink: 0;
+  }
+  .cert-modal-heading { display: flex; align-items: center; gap: 14px; min-width: 0; }
+  .cert-modal-icon {
+    width: 38px; height: 38px; border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .cert-modal-title-wrap { min-width: 0; }
+  .cert-modal-title { font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cert-modal-issuer { font-size: 12px; color: var(--silver); margin-top: 2px; }
+  .cert-modal-close {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--smoke); border: 1px solid var(--mist);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; flex-shrink: 0; transition: all 0.2s;
+    color: var(--charcoal);
+  }
+  .cert-modal-close:hover { background: var(--mist); transform: rotate(90deg); }
+  .cert-modal-close svg { width: 16px; height: 16px; }
+  .cert-modal-body {
+    overflow-y: auto; flex: 1;
+    background: var(--smoke);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .cert-modal-body img {
+    max-width: 100%; height: auto;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    display: block;
+  }
+  .cert-modal-placeholder {
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+    padding: 60px 30px; text-align: center; color: var(--silver);
+  }
+  .cert-modal-placeholder svg { width: 40px; height: 40px; opacity: 0.5; }
+  .cert-modal-placeholder strong { color: var(--slate); font-size: 14px; font-weight: 600; }
+  .cert-modal-placeholder span { font-size: 12.5px; max-width: 320px; line-height: 1.5; }
+  .cert-modal-footer {
+    display: flex; align-items: center; justify-content: flex-end; gap: 10px;
+    padding: 16px 24px; border-top: 1px solid var(--mist);
+    flex-shrink: 0;
+  }
+  .cert-modal-footer a, .cert-modal-footer button {
+    font-size: 13px; font-weight: 600;
+    padding: 9px 18px; border-radius: 50px;
+    text-decoration: none; cursor: pointer; border: none;
+    transition: all 0.2s;
+  }
+  .cert-modal-download { background: var(--ink); color: var(--white); }
+  .cert-modal-download:hover { background: var(--charcoal); }
+  body.modal-open { overflow: hidden; }
 
   /* ── LEARNING ROADMAP ── */
   .roadmap { margin-top: 56px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
@@ -673,7 +765,7 @@
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 12h18M13 6l6 6-6 6"/></svg>
         View Projects
       </a>
-<a href="https://drive.google.com/uc?export=download&id=1scdGoHVPPWt4JqYEMM7H_y9uMz1yHoKG" target="_blank" class="btn-outline">
+<a href="https://drive.google.com/uc?export=download&id=1V0Js0NN7jUk_aCoYV3gSALWHaaOdRt3y" target="_blank" class="btn-outline">
   <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 10V4m0 0l-3 3m3-3l3 3M8 16h8M8 20h8"/></svg>
   Resume
 </a>
@@ -699,7 +791,7 @@
         <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         CS Engineer
       </div>
-      <div class="floating-tag ft-3">⭐ 5+ Certifications</div>
+      <div class="floating-tag ft-3">⚡ 2 Live Projects</div>
     </div>
   </div>
 </div>
@@ -729,7 +821,7 @@
       <div class="stat-label">Certifications Earned</div>
     </div>
     <div class="stat-card reveal reveal-delay-2">
-      <div class="stat-num">5<span>+</span></div>
+      <div class="stat-num">7<span>+</span></div>
       <div class="stat-label">Projects Built</div>
     </div>
     <div class="stat-card reveal reveal-delay-3">
@@ -781,6 +873,57 @@
         Live Demo →
       </a>
       <a href="https://github.com/2303A51402/job-portal-dashboard" target="_blank" class="featured-btn-outline">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.37.6.1.83-.26.83-.57v-2c-3.34.73-4.04-1.6-4.04-1.6-.54-1.38-1.33-1.75-1.33-1.75-1.08-.74.08-.73.08-.73 1.2.09 1.83 1.23 1.83 1.23 1.06 1.82 2.8 1.3 3.48.99.1-.77.41-1.3.75-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.3c0 .32.22.68.83.57C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        View Code
+      </a>
+    </div>
+  </div>
+
+  <!-- FEATURED PROJECT 2 — SmartURL -->
+  <div class="featured-project reveal" style="background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 100%); margin-top: 0;">
+    <div style="position:absolute;top:-60%;right:-5%;width:400px;height:400px;background:radial-gradient(circle,rgba(124,106,247,0.12) 0%,transparent 70%);pointer-events:none;"></div>
+    <span class="featured-badge" style="background:rgba(124,106,247,0.15);border-color:#7c6af7;color:#a89df9;">⚡ New Project</span>
+    <h3 class="featured-title">SmartURL — AI-Powered URL Shortener</h3>
+    <p class="featured-desc">A production-grade URL shortener with AI auto-categorisation, real-time click analytics, and an interactive dashboard. Built with a FastAPI REST backend, SQLite database via SQLAlchemy ORM, and a vanilla JS frontend with Chart.js. Every link shortened is automatically tagged by category (GitHub, YouTube, LinkedIn, Cloud…) and tracked with per-URL daily and hourly click breakdowns. Fully deployed — live backend API with Swagger docs.</p>
+
+    <div class="featured-stack-row">
+      <div class="featured-stack-item">
+        <span class="featured-stack-label">Backend</span>
+        <span class="featured-stack-value">Python · FastAPI · SQLAlchemy</span>
+      </div>
+      <div class="featured-stack-item">
+        <span class="featured-stack-label">Database</span>
+        <span class="featured-stack-value">SQLite · ORM Models</span>
+      </div>
+      <div class="featured-stack-item">
+        <span class="featured-stack-label">Frontend</span>
+        <span class="featured-stack-value">HTML · CSS · JS · Chart.js</span>
+      </div>
+      <div class="featured-stack-item">
+        <span class="featured-stack-label">Deployment</span>
+        <span class="featured-stack-value">Render + Netlify</span>
+      </div>
+    </div>
+
+    <ul class="featured-features">
+      <li>7 REST API endpoints — full CRUD with proper HTTP verbs</li>
+      <li>AI categorisation — auto-tags every URL (GitHub, YouTube, Cloud…)</li>
+      <li>Per-URL analytics — daily & hourly click charts via Chart.js</li>
+      <li>Custom alias support — create memorable short links</li>
+      <li>Swagger UI at /docs — interactive API documentation live</li>
+      <li>Separate ClickLog table for analytics without touching URL records</li>
+      <li>CORS-enabled — frontend/backend fully decoupled architecture</li>
+      <li>Click logging on every redirect — user-agent and referrer tracked</li>
+    </ul>
+
+    <div class="featured-links">
+      <a href="https://smarturl-kalyan.netlify.app" target="_blank" class="featured-btn-primary" style="background:#7c6af7;color:#fff;">
+        Live Demo →
+      </a>
+      <a href="https://smarturl-api.onrender.com/docs" target="_blank" class="featured-btn-outline">
+        API Docs ↗
+      </a>
+      <a href="https://github.com/2303A51402/smarturl" target="_blank" class="featured-btn-outline">
         <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.37.6.1.83-.26.83-.57v-2c-3.34.73-4.04-1.6-4.04-1.6-.54-1.38-1.33-1.75-1.33-1.75-1.08-.74.08-.73.08-.73 1.2.09 1.83 1.23 1.83 1.23 1.06 1.82 2.8 1.3 3.48.99.1-.77.41-1.3.75-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.3c0 .32.22.68.83.57C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
         View Code
       </a>
@@ -951,36 +1094,78 @@
   <p class="section-label">Certifications</p>
   <h2 class="section-headline">Credentials that go beyond class.</h2>
   <div class="certs-grid">
-    <div class="cert-card reveal">
+    <div class="cert-card reveal" tabindex="0" role="button" aria-label="View Python Programming certificate"
+         data-title="Python Programming"
+         data-issuer="Core Python development fundamentals and best practices"
+         data-icon="🐍">
       <div class="cert-icon">🐍</div>
       <div>
         <div class="cert-title">Python Programming</div>
         <div class="cert-issuer">Core Python development fundamentals and best practices</div>
+        <div class="cert-view-hint">View certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
       </div>
     </div>
-    <div class="cert-card reveal reveal-delay-1">
+    <div class="cert-card reveal reveal-delay-1" tabindex="0" role="button" aria-label="View Infosys Certification certificate"
+         data-title="Infosys Certification"
+         data-issuer="Industry-recognized training program by Infosys"
+         data-icon="🏢">
       <div class="cert-icon">🏢</div>
       <div>
         <div class="cert-title">Infosys Certification</div>
         <div class="cert-issuer">Industry-recognized training program by Infosys</div>
+        <div class="cert-view-hint">View certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
       </div>
     </div>
-    <div class="cert-card reveal reveal-delay-2">
+    <div class="cert-card reveal reveal-delay-2" tabindex="0" role="button" aria-label="View Web Development Basics certificate"
+         data-title="Web Development Basics"
+         data-issuer="HTML, CSS, and JavaScript fundamentals for the web"
+         data-icon="🌐">
       <div class="cert-icon">🌐</div>
       <div>
         <div class="cert-title">Web Development Basics</div>
         <div class="cert-issuer">HTML, CSS, and JavaScript fundamentals for the web</div>
+        <div class="cert-view-hint">View certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
       </div>
     </div>
-    <div class="cert-card reveal reveal-delay-3">
+    <div class="cert-card reveal reveal-delay-3" tabindex="0" role="button" aria-label="View Saylor Academy Certification certificate"
+         data-title="Saylor Academy Certification"
+         data-issuer="CS402: Computer Communications and Networks — Saylor Academy"
+         data-icon="🎓"
+         data-image="certs/saylor-cs402.jpg"
+         data-file="certs/saylor-cs402.pdf">
       <div class="cert-icon">🎓</div>
       <div>
         <div class="cert-title">Saylor Academy Certification</div>
         <div class="cert-issuer">Computer Science foundational coursework — Saylor Academy</div>
+        <div class="cert-view-hint">View certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- CERTIFICATE MODAL -->
+<div class="cert-modal-overlay" id="cert-modal-overlay">
+  <div class="cert-modal" role="dialog" aria-modal="true" aria-labelledby="cert-modal-title">
+    <div class="cert-modal-header">
+      <div class="cert-modal-heading">
+        <div class="cert-modal-icon" id="cert-modal-icon">🎓</div>
+        <div class="cert-modal-title-wrap">
+          <div class="cert-modal-title" id="cert-modal-title">Certificate</div>
+          <div class="cert-modal-issuer" id="cert-modal-issuer">Issuer</div>
+        </div>
+      </div>
+      <div class="cert-modal-close" id="cert-modal-close" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </div>
+    </div>
+    <div class="cert-modal-body" id="cert-modal-body">
+      <!-- content injected by JS -->
+    </div>
+    <div class="cert-modal-footer" id="cert-modal-footer">
+      <!-- download/open link injected by JS -->
+    </div>
+  </div>
+</div>
 
 <hr class="section-divider">
 
@@ -1026,7 +1211,7 @@
     </div>
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
       <a href="mailto:vangakalyan18@gmail.com" class="btn-primary">Get in Touch →</a>
-      <a href="https://drive.google.com/uc?export=download&id=1scdGoHVPPWt4JqYEMM7H_y9uMz1yHoKG" class="btn-outline">Download Resume</a>
+      <a href="https://drive.google.com/uc?export=download&id=1V0Js0NN7jUk_aCoYV3gSALWHaaOdRt3y" class="btn-outline">Download Resume</a>
     </div>
   </div>
 </div>
@@ -1141,7 +1326,7 @@ function sendMessage() {
 }
 
 // Ticker
-const techs = ['Python','Java','C','HTML','CSS','JavaScript','MySQL','SQL','Git','GitHub'];
+const techs = ['Python','FastAPI','React','JavaScript','SQLAlchemy','REST API','HTML','CSS','MySQL','Git','Chart.js','Netlify','Render','SQLite'];
 const track = document.getElementById('ticker');
 const items = [...techs, ...techs].map((t, i) => {
   const el = document.createElement('span');
@@ -1162,6 +1347,89 @@ window.addEventListener('scroll', () => {
   const nav = document.querySelector('nav');
   nav.style.boxShadow = window.scrollY > 40 ? '0 2px 20px rgba(0,0,0,0.07)' : 'none';
 });
+
+// ── Certificate modal ──
+(function () {
+  const overlay = document.getElementById('cert-modal-overlay');
+  const closeBtn = document.getElementById('cert-modal-close');
+  const body = document.getElementById('cert-modal-body');
+  const footer = document.getElementById('cert-modal-footer');
+  const titleEl = document.getElementById('cert-modal-title');
+  const issuerEl = document.getElementById('cert-modal-issuer');
+  const iconEl = document.getElementById('cert-modal-icon');
+  let lastFocused = null;
+
+  function openModal(card) {
+    const { title, issuer, icon, image, file } = card.dataset;
+    titleEl.textContent = title || 'Certificate';
+    issuerEl.textContent = issuer || '';
+    iconEl.textContent = icon || '🏅';
+
+    body.innerHTML = '';
+    footer.innerHTML = '';
+
+    if (image) {
+      const img = document.createElement('img');
+      img.src = image;
+      img.alt = (title || 'Certificate') + ' preview';
+      body.appendChild(img);
+    } else {
+      body.innerHTML = `
+        <div class="cert-modal-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 16h5M8 8h2"/></svg>
+          <strong>Certificate coming soon</strong>
+          <span>This certificate image hasn't been added yet. Check back shortly!</span>
+        </div>`;
+    }
+
+    if (file) {
+      const link = document.createElement('a');
+      link.href = file;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.className = 'cert-modal-download';
+      link.textContent = 'Open / Download ↗';
+      footer.appendChild(link);
+    } else if (image) {
+      const link = document.createElement('a');
+      link.href = image;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.className = 'cert-modal-download';
+      link.textContent = 'Open Full Size ↗';
+      footer.appendChild(link);
+    }
+
+    lastFocused = document.activeElement;
+    overlay.classList.add('open');
+    document.body.classList.add('modal-open');
+    closeBtn.focus();
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    document.body.classList.remove('modal-open');
+    if (lastFocused) lastFocused.focus();
+  }
+
+  document.querySelectorAll('.cert-card').forEach(card => {
+    card.addEventListener('click', () => openModal(card));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openModal(card);
+      }
+    });
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+  });
+})();
 </script>
 </body>
 </html>
