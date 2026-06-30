@@ -884,12 +884,16 @@
     <div style="position:absolute;top:-60%;right:-5%;width:400px;height:400px;background:radial-gradient(circle,rgba(124,106,247,0.12) 0%,transparent 70%);pointer-events:none;"></div>
     <span class="featured-badge" style="background:rgba(124,106,247,0.15);border-color:#7c6af7;color:#a89df9;">⚡ New Project</span>
     <h3 class="featured-title">SmartURL — AI-Powered URL Shortener</h3>
-    <p class="featured-desc">A production-grade URL shortener with AI auto-categorisation, real-time click analytics, and an interactive dashboard. Built with a FastAPI REST backend, SQLite database via SQLAlchemy ORM, and a vanilla JS frontend with Chart.js. Every link shortened is automatically tagged by category (GitHub, YouTube, LinkedIn, Cloud…) and tracked with per-URL daily and hourly click breakdowns. Fully deployed — live backend API with Swagger docs.</p>
+    <p class="featured-desc">A production-grade URL shortener with JWT authentication, AI auto-categorisation, real-time click analytics, and an interactive dashboard. Built with a FastAPI REST backend, SQLite database via SQLAlchemy ORM, and a vanilla JS frontend with Chart.js. Users can sign up, log in, and manage their own links through a personal "My Links" dashboard, while every link shortened is automatically tagged by category (GitHub, YouTube, LinkedIn, Cloud…) and tracked with per-URL daily and hourly click breakdowns. Fully deployed — live backend API with Swagger docs.</p>
 
     <div class="featured-stack-row">
       <div class="featured-stack-item">
         <span class="featured-stack-label">Backend</span>
         <span class="featured-stack-value">Python · FastAPI · SQLAlchemy</span>
+      </div>
+      <div class="featured-stack-item">
+        <span class="featured-stack-label">Auth</span>
+        <span class="featured-stack-value">JWT · Passlib (bcrypt)</span>
       </div>
       <div class="featured-stack-item">
         <span class="featured-stack-label">Database</span>
@@ -906,12 +910,14 @@
     </div>
 
     <ul class="featured-features">
-      <li>7 REST API endpoints — full CRUD with proper HTTP verbs</li>
+      <li>10 REST API endpoints — full CRUD plus authentication, with proper HTTP verbs</li>
+      <li>JWT authentication — signup, login, and bcrypt password hashing</li>
+      <li>Per-user link ownership — personal "My Links" dashboard scoped to the logged-in user</li>
       <li>AI categorisation — auto-tags every URL (GitHub, YouTube, Cloud…)</li>
       <li>Per-URL analytics — daily & hourly click charts via Chart.js</li>
       <li>Custom alias support — create memorable short links</li>
       <li>Swagger UI at /docs — interactive API documentation live</li>
-      <li>Separate ClickLog table for analytics without touching URL records</li>
+      <li>Separate Users and ClickLog tables for clean data modeling</li>
       <li>CORS-enabled — frontend/backend fully decoupled architecture</li>
       <li>Click logging on every redirect — user-agent and referrer tracked</li>
     </ul>
@@ -1005,6 +1011,8 @@
         <span class="skill-pill">REST APIs</span>
         <span class="skill-pill">SQLAlchemy</span>
         <span class="skill-pill">Uvicorn</span>
+        <span class="skill-pill">JWT Auth</span>
+        <span class="skill-pill">Passlib (bcrypt)</span>
       </div>
     </div>
     <div class="skill-group reveal reveal-delay-2">
@@ -1289,7 +1297,7 @@ function sendMessage() {
 }
 
 // Ticker
-const techs = ['Python','FastAPI','React','JavaScript','SQLAlchemy','REST API','HTML5','CSS3','MySQL','SQLite','Git','Chart.js','Tailwind CSS','Docker','Netlify','Render','Power BI','Tableau','DAX','Data Analytics'];
+const techs = ['Python','FastAPI','React','JavaScript','SQLAlchemy','REST API','JWT Auth','HTML5','CSS3','MySQL','SQLite','Git','Chart.js','Tailwind CSS','Docker','Netlify','Render','Power BI','Tableau','DAX','Data Analytics'];
 const track = document.getElementById('ticker');
 const items = [...techs, ...techs].map((t, i) => {
   const el = document.createElement('span');
