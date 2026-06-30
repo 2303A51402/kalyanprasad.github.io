@@ -884,7 +884,7 @@
     <div style="position:absolute;top:-60%;right:-5%;width:400px;height:400px;background:radial-gradient(circle,rgba(124,106,247,0.12) 0%,transparent 70%);pointer-events:none;"></div>
     <span class="featured-badge" style="background:rgba(124,106,247,0.15);border-color:#7c6af7;color:#a89df9;">⚡ New Project</span>
     <h3 class="featured-title">SmartURL — AI-Powered URL Shortener</h3>
-    <p class="featured-desc">A production-grade URL shortener with JWT authentication, AI auto-categorisation, real-time click analytics, and an interactive dashboard. Built with a FastAPI REST backend, SQLite database via SQLAlchemy ORM, and a vanilla JS frontend with Chart.js. Users can sign up, log in, and manage their own links through a personal "My Links" dashboard, while every link shortened is automatically tagged by category (GitHub, YouTube, LinkedIn, Cloud…) and tracked with per-URL daily and hourly click breakdowns. Fully deployed — live backend API with Swagger docs.</p>
+    <p class="featured-desc">A production-grade URL shortener with JWT authentication, AI auto-categorisation, real-time click analytics, and a personal "My Links" dashboard. Built with a FastAPI REST backend, SQLite database via SQLAlchemy ORM, and a vanilla JS frontend with Chart.js. Every link shortened is automatically tagged by category (GitHub, YouTube, LinkedIn, Cloud…) and tracked with per-URL daily and hourly click breakdowns. Fully deployed — live backend API with Swagger docs.</p>
 
     <div class="featured-stack-row">
       <div class="featured-stack-item">
@@ -910,14 +910,14 @@
     </div>
 
     <ul class="featured-features">
-      <li>10 REST API endpoints — full CRUD plus authentication, with proper HTTP verbs</li>
-      <li>JWT authentication — signup, login, and bcrypt password hashing</li>
-      <li>Per-user link ownership — personal "My Links" dashboard scoped to the logged-in user</li>
+      <li>10 REST API endpoints — full CRUD with proper HTTP verbs</li>
+      <li>JWT authentication — secure signup/login with bcrypt password hashing</li>
+      <li>Personal "My Links" dashboard — per-user link management, scoped to logged-in account</li>
       <li>AI categorisation — auto-tags every URL (GitHub, YouTube, Cloud…)</li>
       <li>Per-URL analytics — daily & hourly click charts via Chart.js</li>
       <li>Custom alias support — create memorable short links</li>
       <li>Swagger UI at /docs — interactive API documentation live</li>
-      <li>Separate Users and ClickLog tables for clean data modeling</li>
+      <li>Users table plus a separate ClickLog table for analytics without touching URL records</li>
       <li>CORS-enabled — frontend/backend fully decoupled architecture</li>
       <li>Click logging on every redirect — user-agent and referrer tracked</li>
     </ul>
@@ -1182,15 +1182,15 @@
     </div>
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
       <a href="mailto:vangakalyan18@gmail.com" class="btn-primary">Get in Touch →</a>
-      <a href="https://drive.google.com/uc?export=download&id=1pgBPHVkF__hWXjm074KV8IwHq1wxNBDu" target="_blank" class="btn-outline">
+      <a href="https://drive.google.com/uc?export=download&id=1pgBPHVkF__hWXjm074KV8IwHq1wxNBDu" class="btn-outline">Download Resume</a>
     </div>
   </div>
 </div>
 
 <!-- CONTACT FORM -->
-<section id="contact" style="max-width:700px;margin:0 0 0 60px;padding:100px 40px;">
-  <p class="section-label" style="text-align:left">Get In Touch</p>
- <h2 class="section-headline" style="text-align:left;max-width:100%">Send me a message.</h2>
+<section id="contact" style="max-width:700px;margin:0 auto;padding:100px 40px;">
+  <p class="section-label" style="text-align:center">Get In Touch</p>
+  <h2 class="section-headline" style="text-align:center;max-width:100%">Send me a message.</h2>
   <p class="section-body" style="text-align:center;margin:0 auto 48px;max-width:480px">Whether it's a job opportunity, collaboration, or just a hello — I read every message and reply within 24 hours.</p>
   <div class="contact-form-wrap">
     <div class="cf-grid">
