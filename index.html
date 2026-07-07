@@ -1075,15 +1075,16 @@
         <div class="cert-view-hint">View certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
       </div>
     </div>
-    <div class="cert-card reveal reveal-delay-1" tabindex="0" role="button" aria-label="View Infosys Certification certificate"
-         data-title="Infosys Certification"
-         data-issuer="Industry-recognized training program by Infosys"
-         data-icon="🏢">
-      <div class="cert-icon">🏢</div>
+    <div class="cert-card reveal reveal-delay-1" tabindex="0" role="button" aria-label="View HackerRank Certifications"
+         data-gallery="hackerrank"
+         data-title="HackerRank Certifications"
+         data-issuer="HackerRank Certificates of Accomplishment"
+         data-icon="🏆">
+      <div class="cert-icon" style="background: linear-gradient(135deg, #2ec866 0%, #16a34a 100%);">🏆</div>
       <div>
-        <div class="cert-title">Infosys Certification</div>
-        <div class="cert-issuer">Industry-recognized training program by Infosys</div>
-        <div class="cert-view-hint">View certificate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="cert-title">HackerRank Certifications</div>
+        <div class="cert-issuer">Frontend Developer (React) · Software Engineer Intern</div>
+        <div class="cert-view-hint">View certificates <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
       </div>
     </div>
     <div class="cert-card reveal reveal-delay-2" tabindex="0" role="button" aria-label="View Python Programming certificate"
@@ -1210,7 +1211,7 @@
       <label class="cf-label">Message</label>
       <textarea id="cf-message" class="cf-input cf-textarea" placeholder="Hi Kalyan, I came across your portfolio and would love to connect about..."></textarea>
     </div>
-    <button class="cf-btn" onclick="sendMessage()">Send Message →</button>
+    <button class="cf-btn" id="cf-submit-btn" onclick="sendMessage()">Send Message →</button>
     <div id="cf-status" class="cf-status"></div>
   </div>
 </section>
@@ -1232,7 +1233,7 @@
       Email
     </a>
     <a href="tel:+917670938563" class="footer-link">
-      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.37 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.37 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.13.99.36 1.96.68 2.89a2 2 0 0 1-.45 2.11L4.91 10.9a16 16 0 0 0 6.19 6.19l1.6-1.32a2 2 0 0 1 2.11-.45c.93.32 1.9.55 2.89.68A2 2 0 0 1 22 16.92z"/></svg>
       Phone
     </a>
   </div>
@@ -1264,12 +1265,19 @@ if (localStorage.getItem('theme') === 'dark') {
 }
 
 // Contact form
-function sendMessage() {
+// 1. Go to https://formspree.io and sign up free (no credit card needed).
+// 2. Create a new form, point it at vangakalyan18@gmail.com — Formspree gives you
+//    an endpoint like https://formspree.io/f/xxxxxxxx
+// 3. Paste that endpoint below, replacing YOUR_FORM_ID.
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+
+async function sendMessage() {
   const name = document.getElementById('cf-name').value.trim();
   const email = document.getElementById('cf-email').value.trim();
   const subject = document.getElementById('cf-subject').value.trim();
   const message = document.getElementById('cf-message').value.trim();
   const status = document.getElementById('cf-status');
+  const btn = document.getElementById('cf-submit-btn');
 
   if (!name || !email || !message) {
     status.className = 'cf-status error';
@@ -1284,15 +1292,56 @@ function sendMessage() {
     status.textContent = 'Please enter a valid email address.';
     return;
   }
-  const mailtoLink = `mailto:vangakalyan18@gmail.com?subject=${encodeURIComponent(subject || 'Portfolio Contact: ' + name)}&body=${encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message)}`;
-  window.location.href = mailtoLink;
-  status.className = 'cf-status success';
-  status.style.display = 'block';
-  status.textContent = '✓ Opening your email client... Thank you for reaching out!';
-  document.getElementById('cf-name').value = '';
-  document.getElementById('cf-email').value = '';
-  document.getElementById('cf-subject').value = '';
-  document.getElementById('cf-message').value = '';
+
+  // Fallback if the endpoint hasn't been configured yet — behaves like before.
+  if (FORMSPREE_ENDPOINT.includes('YOUR_FORM_ID')) {
+    const mailtoLink = `mailto:vangakalyan18@gmail.com?subject=${encodeURIComponent(subject || 'Portfolio Contact: ' + name)}&body=${encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message)}`;
+    window.location.href = mailtoLink;
+    status.className = 'cf-status success';
+    status.style.display = 'block';
+    status.textContent = '✓ Opening your email client... Thank you for reaching out!';
+    document.getElementById('cf-name').value = '';
+    document.getElementById('cf-email').value = '';
+    document.getElementById('cf-subject').value = '';
+    document.getElementById('cf-message').value = '';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  status.style.display = 'none';
+
+  try {
+    const res = await fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        email,
+        subject: subject || 'Portfolio Contact: ' + name,
+        message
+      })
+    });
+
+    if (res.ok) {
+      status.className = 'cf-status success';
+      status.style.display = 'block';
+      status.textContent = '✓ Message sent! Thank you for reaching out — I\'ll reply within 24 hours.';
+      document.getElementById('cf-name').value = '';
+      document.getElementById('cf-email').value = '';
+      document.getElementById('cf-subject').value = '';
+      document.getElementById('cf-message').value = '';
+    } else {
+      throw new Error('Form submission failed');
+    }
+  } catch (err) {
+    status.className = 'cf-status error';
+    status.style.display = 'block';
+    status.textContent = 'Something went wrong sending your message. Please email vangakalyan18@gmail.com directly.';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Send Message →';
+  }
 }
 
 // Ticker
@@ -1320,6 +1369,16 @@ window.addEventListener('scroll', () => {
 
 // ── Certificate modal ──
 (function () {
+  // Add more HackerRank certificates here any time — just copy a line and
+  // update the title + image path. No other changes needed.
+  const CERT_GALLERIES = {
+    hackerrank: [
+      { title: 'Frontend Developer (React)', image: 'certs/hackerrank-frontend-developer.png' },
+      { title: 'Software Engineer Intern', image: 'certs/hackerrank-software-engineer-intern.png' }
+      // { title: 'New Certificate Name', image: 'certs/new-cert-filename.png' },
+    ]
+  };
+
   const overlay = document.getElementById('cert-modal-overlay');
   const closeBtn = document.getElementById('cert-modal-close');
   const body = document.getElementById('cert-modal-body');
@@ -1330,15 +1389,47 @@ window.addEventListener('scroll', () => {
   let lastFocused = null;
 
   function openModal(card) {
-    const { title, issuer, icon, image, file } = card.dataset;
+    const { title, issuer, icon, image, file, gallery } = card.dataset;
     titleEl.textContent = title || 'Certificate';
     issuerEl.textContent = issuer || '';
     iconEl.textContent = icon || '🏅';
 
     body.innerHTML = '';
     footer.innerHTML = '';
+    footer.style.display = 'flex';
+    body.style.display = 'flex';
+    body.style.padding = '24px';
 
-    if (file && file.startsWith('data:application/pdf')) {
+    if (gallery && CERT_GALLERIES[gallery] && CERT_GALLERIES[gallery].length) {
+      footer.style.display = 'none';
+      body.style.padding = '24px';
+      body.style.display = 'block';
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'display:flex;flex-direction:column;gap:28px;';
+      CERT_GALLERIES[gallery].forEach(item => {
+        const section = document.createElement('div');
+        section.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:12px;';
+        const label = document.createElement('div');
+        label.textContent = item.title;
+        label.style.cssText = 'font-weight:700;font-size:14px;color:var(--charcoal);';
+        const img = document.createElement('img');
+        img.src = item.image;
+        img.alt = item.title + ' preview';
+        img.style.cssText = 'max-width:100%;height:auto;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.12);display:block;';
+        const link = document.createElement('a');
+        link.href = item.image;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.className = 'cert-modal-download';
+        link.textContent = 'Open Full Size ↗';
+        link.style.cssText = 'align-self:center;';
+        section.appendChild(label);
+        section.appendChild(img);
+        section.appendChild(link);
+        wrap.appendChild(section);
+      });
+      body.appendChild(wrap);
+    } else if (file && file.startsWith('data:application/pdf')) {
       const iframe = document.createElement('iframe');
       iframe.src = file;
       iframe.style.cssText = 'width:100%;height:480px;border:none;border-radius:8px;display:block;';
